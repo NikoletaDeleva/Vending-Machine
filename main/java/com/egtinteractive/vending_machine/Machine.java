@@ -4,42 +4,37 @@ public enum Machine implements IMachine {
     STAND_BY {
 
 	public boolean putCoins(VendingMachine machine, long coins) {
-	    // TODO Auto-generated method stub
+	    // funcionality
+	    machine.setState(Machine.SELECT_ITEM);
 	    return false;
 	}
 
 	public boolean selectItem(VendingMachine machine, String name) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean takeItem(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean service(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
+	    machine.setState(Machine.SERVICE);
+	    return true;
 	}
 
 	public boolean returnMoney(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean fixMachine(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean endService(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
@@ -47,42 +42,39 @@ public enum Machine implements IMachine {
     SELECT_ITEM {
 
 	public boolean putCoins(VendingMachine machine, long coins) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean selectItem(VendingMachine machine, String name) {
-	    // TODO Auto-generated method stub
-	    return false;
+	    // functionality
+	    machine.setState(Machine.TAKE_ITEM);
+	    return true;
 	}
 
 	public boolean takeItem(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean service(VendingMachine machine) {
-	    // TODO Auto-generated method stub
+	    machine.setState(Machine.SERVICE);
 	    return false;
 	}
 
 	public boolean returnMoney(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
+	    //functionality
+	    machine.setState(Machine.STAND_BY);
+	    return true;
 	}
 
 	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean fixMachine(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean endService(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
@@ -90,23 +82,23 @@ public enum Machine implements IMachine {
     TAKE_ITEM {
 
 	public boolean putCoins(VendingMachine machine, long coins) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean selectItem(VendingMachine machine, String name) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean takeItem(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
+	    //functionality
+	    
+	    machine.setState(Machine.STAND_BY);
+	    return true;
 	}
 
 	public boolean service(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
+	    machine.setState(Machine.SERVICE);
+	    return true;
 	}
 
 	public boolean returnMoney(VendingMachine machine) {
@@ -133,42 +125,37 @@ public enum Machine implements IMachine {
     SERVICE {
 
 	public boolean putCoins(VendingMachine machine, long coins) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean selectItem(VendingMachine machine, String name) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean takeItem(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean service(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean returnMoney(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
 	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    // TODO Auto-generated method stub
+	    // functionality
 	    return false;
 	}
 
 	public boolean fixMachine(VendingMachine machine) {
-	    // TODO Auto-generated method stub
+	    // functionality
 	    return false;
 	}
 
 	public boolean endService(VendingMachine machine) {
-	    // TODO Auto-generated method stub
+	    machine.setState(Machine.STAND_BY);
 	    return false;
 	}
 
