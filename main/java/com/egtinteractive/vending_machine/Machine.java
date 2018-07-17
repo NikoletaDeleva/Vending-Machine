@@ -61,7 +61,7 @@ public enum Machine implements IMachine {
 	}
 
 	public boolean returnMoney(VendingMachine machine) {
-	    //functionality
+	    // functionality
 	    machine.setState(Machine.STAND_BY);
 	    return true;
 	}
@@ -90,8 +90,8 @@ public enum Machine implements IMachine {
 	}
 
 	public boolean takeItem(VendingMachine machine) {
-	    //functionality
-	    
+	    // functionality
+
 	    machine.setState(Machine.STAND_BY);
 	    return true;
 	}

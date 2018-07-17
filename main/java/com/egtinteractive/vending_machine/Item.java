@@ -10,20 +10,19 @@ public class Item {
     }
 
     public String getName() {
-        return this.name;
+	return this.name;
     }
 
     public void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
 
     public double getPrice() {
-        return this.price;
+	return this.price;
     }
 
     public void setPrice(double price) {
-        this.price = price;
+	this.price = price;
     }
-    
-    
+
 }

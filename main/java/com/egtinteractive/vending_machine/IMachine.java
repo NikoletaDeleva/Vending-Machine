@@ -8,7 +8,7 @@ public interface IMachine {
     abstract boolean takeItem(final VendingMachine machine);
 
     abstract boolean service(final VendingMachine machine);
-    
+
     abstract boolean endService(final VendingMachine machine);
 
     abstract boolean returnMoney(final VendingMachine machine);
