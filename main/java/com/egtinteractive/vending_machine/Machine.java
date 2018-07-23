@@ -1,163 +1,22 @@
 package com.egtinteractive.vending_machine;
 
-public enum Machine implements IMachine {
-    STAND_BY {
+import java.math.BigDecimal;
 
-	public boolean putCoins(VendingMachine machine, long coins) {
-	    // funcionality
-	    machine.setState(Machine.SELECT_ITEM);
-	    return false;
-	}
+public interface Machine {
+    public abstract boolean putCoins(final VendingMachine machine, BigDecimal money);
 
-	public boolean selectItem(VendingMachine machine, String name) {
-	    return false;
-	}
+    public abstract boolean selectItem(final VendingMachine machine, final String name);
 
-	public boolean takeItem(VendingMachine machine) {
-	    return false;
-	}
+    public abstract boolean takeItem(final VendingMachine machine);
 
-	public boolean service(VendingMachine machine) {
-	    machine.setState(Machine.SERVICE);
-	    return true;
-	}
+    public abstract boolean service(final VendingMachine machine);
 
-	public boolean returnMoney(VendingMachine machine) {
-	    return false;
-	}
+    public abstract boolean endService(final VendingMachine machine);
 
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    return false;
-	}
+    public abstract boolean returnMoney(final VendingMachine machine);
 
-	public boolean fixMachine(VendingMachine machine) {
-	    return false;
-	}
+    public abstract boolean addProduct(final VendingMachine machine, final String name, final long price,
+	    final int quantity);
 
-	public boolean endService(VendingMachine machine) {
-	    return false;
-	}
-
-    },
-    SELECT_ITEM {
-
-	public boolean putCoins(VendingMachine machine, long coins) {
-	    return false;
-	}
-
-	public boolean selectItem(VendingMachine machine, String name) {
-	    // functionality
-	    machine.setState(Machine.TAKE_ITEM);
-	    return true;
-	}
-
-	public boolean takeItem(VendingMachine machine) {
-	    return false;
-	}
-
-	public boolean service(VendingMachine machine) {
-	    machine.setState(Machine.SERVICE);
-	    return false;
-	}
-
-	public boolean returnMoney(VendingMachine machine) {
-	    // functionality
-	    machine.setState(Machine.STAND_BY);
-	    return true;
-	}
-
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    return false;
-	}
-
-	public boolean fixMachine(VendingMachine machine) {
-	    return false;
-	}
-
-	public boolean endService(VendingMachine machine) {
-	    return false;
-	}
-
-    },
-    TAKE_ITEM {
-
-	public boolean putCoins(VendingMachine machine, long coins) {
-	    return false;
-	}
-
-	public boolean selectItem(VendingMachine machine, String name) {
-	    return false;
-	}
-
-	public boolean takeItem(VendingMachine machine) {
-	    // functionality
-
-	    machine.setState(Machine.STAND_BY);
-	    return true;
-	}
-
-	public boolean service(VendingMachine machine) {
-	    machine.setState(Machine.SERVICE);
-	    return true;
-	}
-
-	public boolean returnMoney(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-	public boolean fixMachine(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-	public boolean endService(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-    },
-    SERVICE {
-
-	public boolean putCoins(VendingMachine machine, long coins) {
-	    return false;
-	}
-
-	public boolean selectItem(VendingMachine machine, String name) {
-	    return false;
-	}
-
-	public boolean takeItem(VendingMachine machine) {
-	    return false;
-	}
-
-	public boolean service(VendingMachine machine) {
-	    return false;
-	}
-
-	public boolean returnMoney(VendingMachine machine) {
-	    return false;
-	}
-
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    // functionality
-	    return false;
-	}
-
-	public boolean fixMachine(VendingMachine machine) {
-	    // functionality
-	    return false;
-	}
-
-	public boolean endService(VendingMachine machine) {
-	    machine.setState(Machine.STAND_BY);
-	    return false;
-	}
-
-    }
+    public abstract boolean fixMachine(final VendingMachine machine);
 }

@@ -1,36 +1,37 @@
 package com.egtinteractive.vending_machine;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+
 
 public class VendingMachine {
+    private static final int DEFAUL_INVENTORY_SIZE = 16;
     private static VendingMachine vendingMachineInstance = null;
-    private float money;
-    private Machine state;
-    private Map<Item, Integer> products;
+    private BigDecimal money;
+    private StateMachine state;
+    private Inventory inventory;
     private Item currentItem;
 
-    public VendingMachine() {
-	this.money = 0;
-	this.state = Machine.STAND_BY;
-	this.products = new HashMap<Item, Integer>();
+    public VendingMachine(int size){
+	this.money = BigDecimal.ZERO;
+	this.state = StateMachine.STAND_BY;
+	this.inventory = new Inventory(size);
 	currentItem = null;
-    }
-
-    public boolean takeMoney() {
-
-	return true;
-    }
-
-    public void setState(Machine state) {
-	this.state = state;
     }
 
     public static VendingMachine getInstance() {
 	if (vendingMachineInstance == null) {
-	    vendingMachineInstance = new VendingMachine();
+	    vendingMachineInstance = new VendingMachine(DEFAUL_INVENTORY_SIZE);
 	}
 
 	return vendingMachineInstance;
     }
+
+    public void setState(StateMachine state) {
+	this.state = state;
+    }
+    
+    void setMoney(final BigDecimal money) {
+	
+    }
+
 }
