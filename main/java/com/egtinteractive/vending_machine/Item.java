@@ -3,8 +3,8 @@ package com.egtinteractive.vending_machine;
 import java.util.Objects;
 
 public class Item {
-    private String name;
-    private long price;
+    private final String name;
+    private final long price;
 
     public Item(String name, long price) {
 	this.name = name;
@@ -22,7 +22,7 @@ public class Item {
     @Override
     public int hashCode() {
 
-	return 7*Objects.hashCode(name) + 11*Objects.hashCode(price);
+	return 7 * Objects.hashCode(name) + 11 * Objects.hashCode(price);
     }
 
     @Override
@@ -36,9 +36,9 @@ public class Item {
 	if (!(obj instanceof Item)) {
 	    return false;
 	}
-	
+
 	Item other = (Item) obj;
-	
+
 	return name.equals(other.name) && (price == other.price);
     }
 

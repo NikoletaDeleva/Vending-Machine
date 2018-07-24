@@ -6,11 +6,11 @@ public class VendingMachine {
     private long coins;
     private long totalMoney;
     private StateMachine state;
-    private Inventory inventory;
+    private final Inventory inventory;
 
     private VendingMachine(int size) {
 	this.coins = 0L;
-	this.totalMoney = 0L;
+	this.setTotalMoney(0L);
 	this.state = StateMachine.STAND_BY;
 	this.inventory = new Inventory(size);
     }
@@ -56,12 +56,20 @@ public class VendingMachine {
 
     void takeCustomerCoins(Item specificItem) {
 	this.coins -= specificItem.getPrice();
-	this.totalMoney += specificItem.getPrice();
+	this.setTotalMoney(this.getTotalMoney() + specificItem.getPrice());
     }
 
     long returnCoinsToCustomer() {
 	final long moneyToReturn = this.coins;
 	this.coins = 0L;
 	return moneyToReturn;
+    }
+
+    public long getTotalMoney() {
+	return totalMoney;
+    }
+
+    public void setTotalMoney(long totalMoney) {
+	this.totalMoney = totalMoney;
     }
 }
