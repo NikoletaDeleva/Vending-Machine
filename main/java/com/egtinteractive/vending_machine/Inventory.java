@@ -2,6 +2,7 @@ package com.egtinteractive.vending_machine;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public final class Inventory {
     private final int SIZE;
@@ -13,43 +14,52 @@ public final class Inventory {
     }
 
     public boolean addItem(Item item, int quantity) {
-	
-	if(item == null) {
+
+	if (item == null) {
 	    throw new NullPointerException("Null item! You cannot add it!");
 	}
-	if(quantity <= 0 || item.getPrice().doubleValue() <= 0) {
+	if (quantity <= 0 || item.getPrice() <= 0) {
 	    return false;
 	}
-	if(products.size() == SIZE) {
+	if (products.size() == SIZE) {
 	    return false;
 	}
-	if(quantity > (this.SIZE - products.size())) {
+	if (quantity > (this.SIZE - products.size())) {
 	    quantity = this.SIZE - products.size();
 	}
-	if(products.containsKey(item)) {
+	if (products.containsKey(item)) {
 	    int currentQuantity = products.get(item);
 	    products.replace(item, currentQuantity, currentQuantity + quantity);
-	}else {
+	} else {
 	    products.put(item, quantity);
 	}
 	return true;
     }
-    
-    public boolean containsItem (Item item) {
+
+    public boolean containsItem(Item item) {
 	return products.containsKey(item);
     }
-    
-    public int getAmauntOfItem (Item item) {
+
+    public int getAmauntOfItem(Item item) {
 	return products.get(item);
     }
-    
+
     public void removeItem(Item item) {
 	products.remove(item);
     }
-    
+
     public void getOneSpecificItemFromInventory(Item item) {
 	int currentQuantity = products.get(item);
-	products.replace(item, currentQuantity ,currentQuantity - 1);
+	products.replace(item, currentQuantity, currentQuantity - 1);
     }
-    
+
+    public Item getItemByName(String name) {
+	for (Map.Entry<Item, Integer> item : products.entrySet()) {
+	    if (item.getKey().getName().equals(name)) {
+		return (Item) item;
+	    }
+	}
+	throw new NoSuchElementException("There is no item with that name");
+    }
+
 }

@@ -1,13 +1,12 @@
 package com.egtinteractive.vending_machine;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Item {
     private String name;
-    private BigDecimal price;
+    private long price;
 
-    public Item(String name, BigDecimal price) {
+    public Item(String name, long price) {
 	this.name = name;
 	this.price = price;
     }
@@ -16,7 +15,7 @@ public class Item {
 	return this.name;
     }
 
-    public BigDecimal getPrice() {
+    public long getPrice() {
 	return this.price;
     }
 
@@ -40,7 +39,7 @@ public class Item {
 	
 	Item other = (Item) obj;
 	
-	return name.equals(other.name) && price.equals(other.price);
+	return name.equals(other.name) && (price == other.price);
     }
 
 }

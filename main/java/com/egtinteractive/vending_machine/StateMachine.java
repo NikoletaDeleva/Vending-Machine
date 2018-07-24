@@ -1,166 +1,198 @@
 package com.egtinteractive.vending_machine;
 
-import java.math.BigDecimal;
-
 public enum StateMachine implements Machine {
     STAND_BY {
 
-	public boolean putCoins(VendingMachine machine, BigDecimal money) {
-	    
-	    machine.setMoney(money);
+	@Override
+	public boolean putCoins(VendingMachine machine, long coins) {
+	    machine.addCoinsToMachine(coins);
 	    machine.setState(StateMachine.SELECT_ITEM);
-	    
 	    return true;
 	}
 
+	@Override
 	public boolean selectItem(VendingMachine machine, String name) {
 	    return false;
 	}
 
+	@Override
 	public boolean takeItem(VendingMachine machine) {
 	    return false;
 	}
 
+	@Override
+	public boolean returnMoney(VendingMachine machine) {
+	    return false;
+	}
+
+	@Override
+	public boolean addItem(VendingMachine machine, String name, long price, int quantity) {
+	    return false;
+	}
+
+	@Override
+	public boolean fixMachine(VendingMachine machine) {
+	    return false;
+	}
+
+	@Override
 	public boolean service(VendingMachine machine) {
 	    machine.setState(StateMachine.SERVICE);
 	    return true;
 	}
 
-	public boolean returnMoney(VendingMachine machine) {
-	    return false;
-	}
-
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    return false;
-	}
-
-	public boolean fixMachine(VendingMachine machine) {
-	    return false;
-	}
-
+	@Override
 	public boolean endService(VendingMachine machine) {
 	    return false;
 	}
 
     },
     SELECT_ITEM {
-
-	public boolean putCoins(VendingMachine machine, BigDecimal money) {
-	    
-	    machine.setMoney(money);
-	    
+	@Override
+	public boolean putCoins(VendingMachine machine, long coins) {
+	    machine.addCoinsToMachine(coins);
 	    return true;
 	}
 
+	@Override
 	public boolean selectItem(VendingMachine machine, String name) {
-	    // functionality
-	    machine.setState(StateMachine.TAKE_ITEM);
-	    return true;
+
+	    Item specificItem = machine.getInventory().getItemByName(name);
+
+	    if (machine.getMoney() < specificItem.getPrice()) {
+		return false;
+	    }
+	    if (machine.getInventory().getAmauntOfItem(specificItem) > 0) {
+		machine.getInventory().getOneSpecificItemFromInventory(specificItem);
+		machine.takeCustomerCoins(specificItem);
+		machine.setState(StateMachine.TAKE_ITEM);
+		return true;
+	    }
+	    return false;
 	}
 
+	@Override
 	public boolean takeItem(VendingMachine machine) {
 	    return false;
 	}
 
-	public boolean service(VendingMachine machine) {
-	    machine.setState(StateMachine.SERVICE);
-	    return false;
-	}
-
+	@Override
 	public boolean returnMoney(VendingMachine machine) {
 	    // functionality
 	    machine.setState(StateMachine.STAND_BY);
 	    return true;
 	}
 
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
+	@Override
+	public boolean addItem(VendingMachine machine, String name, long price, int quantity) {
 	    return false;
 	}
 
+	@Override
 	public boolean fixMachine(VendingMachine machine) {
 	    return false;
 	}
 
+	@Override
+	public boolean service(VendingMachine machine) {
+	    machine.setState(StateMachine.SERVICE);
+	    return false;
+	}
+
+	@Override
 	public boolean endService(VendingMachine machine) {
 	    return false;
 	}
 
     },
     TAKE_ITEM {
-
-	public boolean putCoins(VendingMachine machine, BigDecimal money) {
+	@Override
+	public boolean putCoins(VendingMachine machine, long coins) {
 	    return false;
 	}
 
+	@Override
 	public boolean selectItem(VendingMachine machine, String name) {
 	    return false;
 	}
 
+	@Override
 	public boolean takeItem(VendingMachine machine) {
-	    // functionality
-
+	    if (machine.getMoney() > 0) {
+		machine.returnCoinsToCustomer();
+	    }
 	    machine.setState(StateMachine.STAND_BY);
 	    return true;
 	}
 
+	@Override
+	public boolean returnMoney(VendingMachine machine) {
+	    // functionality
+	    return false;
+	}
+
+	@Override
+	public boolean addItem(VendingMachine machine, String name, long price, int quantity) {
+	    return false;
+	}
+
+	@Override
+	public boolean fixMachine(VendingMachine machine) {
+	    return false;
+	}
+
+	@Override
 	public boolean service(VendingMachine machine) {
 	    machine.setState(StateMachine.SERVICE);
 	    return true;
 	}
 
-	public boolean returnMoney(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-	public boolean fixMachine(VendingMachine machine) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
+	@Override
 	public boolean endService(VendingMachine machine) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
     },
     SERVICE {
-
-	public boolean putCoins(VendingMachine machine, BigDecimal money) {
+	@Override
+	public boolean putCoins(VendingMachine machine, long coins) {
 	    return false;
 	}
 
+	@Override
 	public boolean selectItem(VendingMachine machine, String name) {
 	    return false;
 	}
 
+	@Override
 	public boolean takeItem(VendingMachine machine) {
 	    return false;
 	}
 
-	public boolean service(VendingMachine machine) {
-	    return false;
-	}
-
+	@Override
 	public boolean returnMoney(VendingMachine machine) {
 	    return false;
 	}
 
-	public boolean addProduct(VendingMachine machine, String name, long price, int quantity) {
-	    
+	@Override
+	public boolean addItem(VendingMachine machine, String name, long price, int quantity) {
+	    Item item = new Item(name, price);
+	    machine.getInventory().addItem(item, quantity);
 	    return true;
 	}
 
+	@Override
 	public boolean fixMachine(VendingMachine machine) {
 	    // functionality
 	    return false;
 	}
 
+	@Override
+	public boolean service(VendingMachine machine) {
+	    return false;
+	}
+
+	@Override
 	public boolean endService(VendingMachine machine) {
 	    machine.setState(StateMachine.STAND_BY);
 	    return false;
