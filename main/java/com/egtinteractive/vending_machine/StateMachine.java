@@ -48,7 +48,7 @@ public enum StateMachine implements Machine {
 	    machine.addCoinsToMachine(coins);
 	    return true;
 	}
-//should check
+
 	@Override
 	public boolean selectItem(VendingMachine machine, String name) {
 
@@ -70,10 +70,10 @@ public enum StateMachine implements Machine {
 	public boolean takeItem(VendingMachine machine) {
 	    return false;
 	}
-//should check
+
 	@Override
 	public boolean returnMoney(VendingMachine machine) {
-	    // functionality
+	    machine.returnCoinsToCustomer();
 	    machine.setState(StateMachine.STAND_BY);
 	    return true;
 	}
@@ -105,7 +105,7 @@ public enum StateMachine implements Machine {
 	public boolean selectItem(VendingMachine machine, String name) {
 	    return false;
 	}
-//should check
+
 	@Override
 	public boolean takeItem(VendingMachine machine) {
 	    if (machine.getCoins() > 0) {
@@ -157,15 +157,13 @@ public enum StateMachine implements Machine {
 	public boolean returnMoney(VendingMachine machine) {
 	    return false;
 	}
-//should check
+
 	@Override
 	public boolean addItem(VendingMachine machine, String name, long price, int quantity) {
 	    Item item = new Item(name, price);
-	    
-	    machine.getInventory().addItem(item, quantity);
-	    return true;
-	}
 
+	    return machine.getInventory().addItem(item, quantity);
+	}
 
 	@Override
 	public boolean service(VendingMachine machine) {

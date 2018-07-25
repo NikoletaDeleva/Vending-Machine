@@ -26,28 +26,8 @@ public class VendingMachine {
 	this.state = state;
     }
 
-    public long putCoins(final long coins) {
-	if (coins > 0) {
-	    return coins;
-	}
-	this.state.putCoins(this, coins);
-	return this.coins;
-    }
-
     long getCoins() {
 	return this.coins;
-    }
-
-    public Inventory getInventory() {
-	return this.inventory;
-    }
-
-    public Item selectItem(final String name) {
-	return this.state.selectItem(this, name) ? this.inventory.getItemByName(name) : null;
-    }
-
-    public boolean takeItem() {
-	return state.takeItem(this);
     }
 
     void addCoinsToMachine(final long coins) {
@@ -65,6 +45,26 @@ public class VendingMachine {
 	return moneyToReturn;
     }
 
+    public long putCoins(final long coins) {
+	if (coins > 0) {
+	    return coins;
+	}
+	this.state.putCoins(this, coins);
+	return this.coins;
+    }
+
+    public Inventory getInventory() {
+	return this.inventory;
+    }
+
+    public Item selectItem(final String name) {
+	return this.state.selectItem(this, name) ? this.inventory.getItemByName(name) : null;
+    }
+
+    public boolean takeItem() {
+	return state.takeItem(this);
+    }
+
     public long getTotalMoney() {
 	return totalMoney;
     }
@@ -72,16 +72,16 @@ public class VendingMachine {
     public void setTotalMoney(long totalMoney) {
 	this.totalMoney = totalMoney;
     }
-    
+
     public boolean addItem(String name, long price, int quantity) {
 	return this.state.addItem(this, name, price, quantity);
     }
-    
+
     public int getDifferentItemsCount() {
 	return inventory.getDifferentItemsCount();
     }
-    
-    public int getAllItemsCount () {
+
+    public int getAllItemsCount() {
 	return inventory.getAllItemsCount();
     }
 }
