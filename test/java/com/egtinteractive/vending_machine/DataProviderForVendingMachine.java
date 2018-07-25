@@ -13,7 +13,4 @@ public class DataProviderForVendingMachine {
 	return new Object[][] { { CreateVendingMachine.createEmptyMachine() } };
     }
 
-    public static Object[][] getFullMachineWithMoneyAndSelectedProductDataProvider() {
-	return new Object[][] { { CreateVendingMachine.createFullMachineWithMoney() } };
-    }
 }

@@ -19,18 +19,18 @@ public class AddItemTest {
     public void addNonExistingItem(VendingMachine machine) {
 	final int beforeSize = machine.getDifferentItemsCount();
 	final int beforeAmountOfAll = machine.getAllItemsCount();
-	
-	final int itemsToPut = ThreadLocalRandom.current().nextInt(1,10);
-	
+
+	final int itemsToPut = ThreadLocalRandom.current().nextInt(1, 10);
+
 	machine.addItem("Kola", 180, itemsToPut);
-	
+
 	final int afterSize = machine.getDifferentItemsCount();
 	final int afterAmountOfAll = machine.getAllItemsCount();
-	
+
 	assertEquals(afterSize, beforeSize + 1);
 	assertEquals(afterAmountOfAll, beforeAmountOfAll + itemsToPut);
     }
-    
+
     @Test(dataProvider = "getFullMachineInService")
     public void addProductWithNegativePrice(VendingMachine machine) {
 	assertFalse(machine.addItem("Duvki", -100, 5));
@@ -40,7 +40,5 @@ public class AddItemTest {
     public void addProductWithNegativeAmount(VendingMachine machine) {
 	assertFalse(machine.addItem("Duvki", 100, -5));
     }
-    
-    
-    
+
 }

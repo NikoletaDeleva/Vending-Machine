@@ -84,4 +84,12 @@ public class VendingMachine {
     public int getAllItemsCount() {
 	return inventory.getAllItemsCount();
     }
+
+    public void service() {
+	this.setState(StateMachine.SERVICE);
+    }
+    
+    public boolean endService() {
+	return this.state.endService(this);
+    }
 }
