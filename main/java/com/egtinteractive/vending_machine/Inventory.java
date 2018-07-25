@@ -18,18 +18,23 @@ public final class Inventory {
 	if (item == null) {
 	    throw new NullPointerException("Null item! You cannot add it!");
 	}
+
+	int currentQuantity = products.get(item);
+
+	if (products.size() == SIZE && !products.containsKey(item)) {
+	    return false;
+	}
+
 	if (quantity <= 0 || item.getPrice() <= 0) {
 	    return false;
 	}
-	if (products.size() == SIZE) {
-	    return false;
-	}
-	if (quantity > (this.SIZE - products.size())) {
-	    quantity = this.SIZE - products.size();
-	}
 	if (products.containsKey(item)) {
-	    int currentQuantity = products.get(item);
-	    products.replace(item, currentQuantity, currentQuantity + quantity);
+	    if (currentQuantity + quantity > 10) {
+		products.replace(item, currentQuantity, 10);
+
+	    } else {
+		products.replace(item, currentQuantity, currentQuantity + quantity);
+	    }
 	} else {
 	    products.put(item, quantity);
 	}
@@ -40,8 +45,20 @@ public final class Inventory {
 	return products.containsKey(item);
     }
 
-    public int getAmauntOfItem(Item item) {
+    public int getAmountOfItem(Item item) {
 	return products.get(item);
+    }
+
+    public int getDifferentItemsCount() {
+	return this.products.size();
+    }
+
+    public int getAllItemsCount() {
+	int count = 0;
+	for (Map.Entry<Item, Integer> item : products.entrySet()) {
+	    count += item.getValue();
+	}
+	return count;
     }
 
     public void removeItem(Item item) {

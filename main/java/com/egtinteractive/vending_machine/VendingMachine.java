@@ -34,7 +34,7 @@ public class VendingMachine {
 	return this.coins;
     }
 
-    long getMoney() {
+    long getCoins() {
 	return this.coins;
     }
 
@@ -51,7 +51,7 @@ public class VendingMachine {
     }
 
     void addCoinsToMachine(final long coins) {
-
+	this.coins += coins;
     }
 
     void takeCustomerCoins(Item specificItem) {
@@ -71,5 +71,17 @@ public class VendingMachine {
 
     public void setTotalMoney(long totalMoney) {
 	this.totalMoney = totalMoney;
+    }
+    
+    public boolean addItem(String name, long price, int quantity) {
+	return this.state.addItem(this, name, price, quantity);
+    }
+    
+    public int getDifferentItemsCount() {
+	return inventory.getDifferentItemsCount();
+    }
+    
+    public int getAllItemsCount () {
+	return inventory.getAllItemsCount();
     }
 }

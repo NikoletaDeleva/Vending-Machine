@@ -15,6 +15,4 @@ public interface Machine {
 
     public abstract boolean addItem(final VendingMachine machine, final String name, final long price,
 	    final int quantity);
-
-    public abstract boolean fixMachine(final VendingMachine machine);
 }
