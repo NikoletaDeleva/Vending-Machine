@@ -1,15 +1,15 @@
 package com.egtinteractive.vending_machine;
 
 public class DataProviderForVendingMachine {
-    public static Object[][] getFullMachineDataProvider() {
+    public static Object[][] getFullMachine() {
 	return new Object[][] { { CreateVendingMachine.createFullMachine() } };
     }
 
-    public static Object[][] getFullMachineInServiceDataProvider() {
+    public static Object[][] getFullMachineInService() {
 	return new Object[][] { { CreateVendingMachine.createFullMachineServiceMode() } };
     }
 
-    public static Object[][] getEmptyMachineDataProvider() {
+    public static Object[][] getEmptyMachine() {
 	return new Object[][] { { CreateVendingMachine.createEmptyMachine() } };
     }
 

@@ -46,9 +46,6 @@ public class VendingMachine {
     }
 
     public long putCoins(final long coins) {
-	if (coins > 0) {
-	    return coins;
-	}
 	this.state.putCoins(this, coins);
 	return this.coins;
     }
@@ -88,7 +85,7 @@ public class VendingMachine {
     public void service() {
 	this.setState(StateMachine.SERVICE);
     }
-    
+
     public boolean endService() {
 	return this.state.endService(this);
     }

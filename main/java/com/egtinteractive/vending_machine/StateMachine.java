@@ -5,6 +5,9 @@ public enum StateMachine implements Machine {
 
 	@Override
 	public boolean putCoins(VendingMachine machine, long coins) {
+	    if (coins <= 0) {
+		return false;
+	    }
 	    machine.addCoinsToMachine(coins);
 	    machine.setState(StateMachine.SELECT_ITEM);
 	    return true;

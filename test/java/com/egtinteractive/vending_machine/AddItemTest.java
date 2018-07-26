@@ -12,11 +12,11 @@ public class AddItemTest {
 
     @DataProvider(name = "getFullMachineInService")
     public Object[][] getData() {
-	return DataProviderForVendingMachine.getFullMachineInServiceDataProvider();
+	return DataProviderForVendingMachine.getFullMachineInService();
     }
 
     @Test(dataProvider = "getFullMachineInService")
-    public void addNonExistingItem(VendingMachine machine) {
+    public void addNonExistingItem(final VendingMachine machine) {
 	final int beforeSize = machine.getDifferentItemsCount();
 	final int beforeAmountOfAll = machine.getAllItemsCount();
 
@@ -32,12 +32,12 @@ public class AddItemTest {
     }
 
     @Test(dataProvider = "getFullMachineInService")
-    public void addProductWithNegativePrice(VendingMachine machine) {
+    public void addProductWithNegativePrice(final VendingMachine machine) {
 	assertFalse(machine.addItem("Duvki", -100, 5));
     }
 
     @Test(dataProvider = "getFullMachineInService")
-    public void addProductWithNegativeAmount(VendingMachine machine) {
+    public void addProductWithNegativeAmount(final VendingMachine machine) {
 	assertFalse(machine.addItem("Duvki", 100, -5));
     }
 

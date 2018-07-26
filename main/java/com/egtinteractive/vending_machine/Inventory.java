@@ -16,10 +16,10 @@ public final class Inventory {
     public boolean addItem(Item item, int quantity) {
 
 	if (item == null) {
-	    throw new NullPointerException("Null item! You cannot add it!");
+	    return false;
 	}
 
-	int currentQuantity = products.get(item);
+	Integer currentQuantity = products.get(item);
 
 	if (products.size() == SIZE && !products.containsKey(item)) {
 	    return false;
