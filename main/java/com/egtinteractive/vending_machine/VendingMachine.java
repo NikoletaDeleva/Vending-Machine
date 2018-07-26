@@ -1,5 +1,7 @@
 package com.egtinteractive.vending_machine;
 
+import java.util.Map;
+
 public class VendingMachine {
     private static final int DEFAUL_INVENTORY_SIZE = 16;
     private static VendingMachine vendingMachineInstance = null;
@@ -82,11 +84,51 @@ public class VendingMachine {
 	return inventory.getAllItemsCount();
     }
 
-    public void service() {
+    public int getSpecificItemCount(String name) {
+
+	Item item = inventory.getItemByName(name);
+
+	return inventory.getAmountOfItem(item);
+    }
+
+    public long service() {
+	long moneyReturn = this.returnCoinsToCustomer();
 	this.setState(StateMachine.SERVICE);
+	return moneyReturn;
     }
 
     public boolean endService() {
 	return this.state.endService(this);
+    }
+
+    public long getItemPrice(String name) {
+	Item item = inventory.getItemByName(name);
+	return item.getPrice();
+    }
+
+    public void loadHomePage() {
+	if (inventory.getProducts().isEmpty()) {
+	    
+	    System.out.println("Machine need service!");
+	    
+	} else {
+	    final StringBuilder sb = new StringBuilder();
+	    sb.append(System.lineSeparator() + "CREDIT:" + this.coins + "-----------------------------------------"
+		    + System.lineSeparator() + "-------------------------------------------------"
+		    + System.lineSeparator());
+	    sb.append(String.format("%s %30s %2s" + System.lineSeparator() + "-------------------------------------------------"
+		    + System.lineSeparator(), "PRODUCT:", "PRICE:", "Quantity:"));
+	    for (Map.Entry<Item, Integer> entry : this.getInventory().getProducts().entrySet()) {
+
+		final String name = entry.getKey().getName();
+		final long price = entry.getKey().getPrice();
+		int quantity = entry.getValue();
+		sb.append(String.format("%s %33s %5s" + System.lineSeparator(), name, price, quantity));
+	    }
+	    sb.append(
+		    "-------------------------------------------------" + System.lineSeparator() + System.lineSeparator());
+	    System.out.println(sb);
+	}
+	
     }
 }

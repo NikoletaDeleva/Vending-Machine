@@ -56,7 +56,9 @@ public enum StateMachine implements Machine {
 	public boolean selectItem(VendingMachine machine, String name) {
 
 	    Item specificItem = machine.getInventory().getItemByName(name);
-
+	    if(specificItem == null) {
+		return false;
+	    }
 	    if (machine.getCoins() < specificItem.getPrice()) {
 		return false;
 	    }

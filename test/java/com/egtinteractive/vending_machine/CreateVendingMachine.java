@@ -2,6 +2,8 @@ package com.egtinteractive.vending_machine;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.egtinteractive.vending_machine.VendingMachine;
+
 public class CreateVendingMachine {
 
     private static void loadMachine(VendingMachine machine) {

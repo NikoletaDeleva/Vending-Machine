@@ -1,8 +1,8 @@
 package com.egtinteractive.vending_machine;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public final class Inventory {
     private final int SIZE;
@@ -19,6 +19,14 @@ public final class Inventory {
 	    return false;
 	}
 
+	String name = item.getName();
+
+	for (Map.Entry<Item, Integer> product : products.entrySet()) {
+	    if (product.getKey().getName().equals(name) && item.getPrice()!=product.getKey().getPrice()) {
+		return false;
+	    }
+	}
+
 	Integer currentQuantity = products.get(item);
 
 	if (products.size() == SIZE && !products.containsKey(item)) {
@@ -31,7 +39,6 @@ public final class Inventory {
 	if (products.containsKey(item)) {
 	    if (currentQuantity + quantity > 10) {
 		products.replace(item, currentQuantity, 10);
-
 	    } else {
 		products.replace(item, currentQuantity, currentQuantity + quantity);
 	    }
@@ -73,10 +80,14 @@ public final class Inventory {
     public Item getItemByName(String name) {
 	for (Map.Entry<Item, Integer> item : products.entrySet()) {
 	    if (item.getKey().getName().equals(name)) {
-		return (Item) item;
+		return item.getKey();
 	    }
 	}
-	throw new NoSuchElementException("There is no item with that name");
+	return null;
+    }
+
+    public Map<Item, Integer> getProducts() {
+	return Collections.unmodifiableMap(products);
     }
 
 }
