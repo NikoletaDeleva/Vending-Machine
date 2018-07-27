@@ -1,4 +1,4 @@
-package com.egtinteractive.vending_machine;
+package com.egtinteractive.data_provider;
 
 public enum Items {
     KITKAT("KitKat"), LOLLIPOP("LolliPop"), FANTA("Fanta"), Mura("Mura"), JUICE("Juice"), WATER("Water");

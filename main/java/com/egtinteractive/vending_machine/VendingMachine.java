@@ -2,6 +2,9 @@ package com.egtinteractive.vending_machine;
 
 import java.util.Map;
 
+import com.egtinteractive.inventory.Inventory;
+import com.egtinteractive.inventory.Item;
+
 public class VendingMachine {
     private static final int DEFAUL_INVENTORY_SIZE = 16;
     private static VendingMachine vendingMachineInstance = null;
@@ -10,7 +13,7 @@ public class VendingMachine {
     private StateMachine state;
     private final Inventory inventory;
 
-    private VendingMachine(int size) {
+    private VendingMachine(final int size) {
 	this.coins = 0L;
 	this.setTotalMoney(0L);
 	this.state = StateMachine.STAND_BY;
@@ -24,7 +27,7 @@ public class VendingMachine {
 	return vendingMachineInstance;
     }
 
-    void setState(StateMachine state) {
+    void setState(final StateMachine state) {
 	this.state = state;
     }
 
@@ -36,7 +39,7 @@ public class VendingMachine {
 	this.coins += coins;
     }
 
-    void takeCustomerCoins(Item specificItem) {
+    void takeCustomerCoins(final Item specificItem) {
 	this.coins -= specificItem.getPrice();
 	this.setTotalMoney(this.getTotalMoney() + specificItem.getPrice());
     }
@@ -72,7 +75,7 @@ public class VendingMachine {
 	this.totalMoney = totalMoney;
     }
 
-    public boolean addItem(String name, long price, int quantity) {
+    public boolean addItem(final String name, long price, int quantity) {
 	return this.state.addItem(this, name, price, quantity);
     }
 
@@ -84,7 +87,7 @@ public class VendingMachine {
 	return inventory.getAllItemsCount();
     }
 
-    public int getSpecificItemCount(String name) {
+    public int getSpecificItemCount(final String name) {
 
 	Item item = inventory.getItemByName(name);
 
@@ -101,23 +104,24 @@ public class VendingMachine {
 	return this.state.endService(this);
     }
 
-    public long getItemPrice(String name) {
+    public long getItemPrice(final String name) {
 	Item item = inventory.getItemByName(name);
 	return item.getPrice();
     }
 
     public void loadHomePage() {
 	if (inventory.getProducts().isEmpty()) {
-	    
+
 	    System.out.println("Machine need service!");
-	    
+
 	} else {
 	    final StringBuilder sb = new StringBuilder();
-	    sb.append(System.lineSeparator() + "CREDIT:" + this.coins + "-----------------------------------------"
+	    sb.append(System.lineSeparator() + "CREDIT:" + getCoins() + "-----------------------------------------"
 		    + System.lineSeparator() + "-------------------------------------------------"
 		    + System.lineSeparator());
-	    sb.append(String.format("%s %30s %2s" + System.lineSeparator() + "-------------------------------------------------"
-		    + System.lineSeparator(), "PRODUCT:", "PRICE:", "Quantity:"));
+	    sb.append(String.format("%s %30s %2s" + System.lineSeparator()
+		    + "-------------------------------------------------" + System.lineSeparator(), "PRODUCT:",
+		    "PRICE:", "Quantity:"));
 	    for (Map.Entry<Item, Integer> entry : this.getInventory().getProducts().entrySet()) {
 
 		final String name = entry.getKey().getName();
@@ -125,10 +129,14 @@ public class VendingMachine {
 		int quantity = entry.getValue();
 		sb.append(String.format("%s %33s %5s" + System.lineSeparator(), name, price, quantity));
 	    }
-	    sb.append(
-		    "-------------------------------------------------" + System.lineSeparator() + System.lineSeparator());
+	    sb.append("-------------------------------------------------" + System.lineSeparator()
+		    + System.lineSeparator());
 	    System.out.println(sb);
 	}
-	
+
+    }
+
+    public StateMachine getState() {
+	return this.state;
     }
 }

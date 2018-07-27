@@ -1,4 +1,4 @@
-package com.egtinteractive.vending_machine;
+package com.egtinteractive.inventory;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.egtinteractive.vending_machine;
+package com.egtinteractive.data_provider;
 
 public class DataProviderForVendingMachine {
     public static Object[][] getFullMachine() {
@@ -11,6 +11,11 @@ public class DataProviderForVendingMachine {
 
     public static Object[][] getEmptyMachine() {
 	return new Object[][] { { CreateVendingMachine.createEmptyMachine() } };
+    }
+
+    public static Object[][] getFullMachineItemSelectedtDataProvider() {
+	return new Object[][] { { CreateVendingMachine.createFullMachineItemSelected() } };
+
     }
 
 }

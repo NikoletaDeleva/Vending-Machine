@@ -8,8 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.egtinteractive.data_provider.DataProviderForVendingMachine;
 import com.egtinteractive.vending_machine.VendingMachine;
-import com.egtinteractive.vending_machine.DataProviderForVendingMachine;
 
 public class PutCoinsTest {
 

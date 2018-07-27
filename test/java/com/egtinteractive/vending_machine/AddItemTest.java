@@ -3,13 +3,14 @@ package com.egtinteractive.vending_machine;
 import static org.junit.Assert.assertFalse;
 import static org.testng.Assert.assertEquals;
 
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.egtinteractive.data_provider.DataProviderForVendingMachine;
 import com.egtinteractive.vending_machine.VendingMachine;
-import com.egtinteractive.vending_machine.DataProviderForVendingMachine;
 
 public class AddItemTest {
 
@@ -25,7 +26,7 @@ public class AddItemTest {
 
 	final int itemsToPut = ThreadLocalRandom.current().nextInt(1, 10);
 
-	machine.addItem("Kola", 180, itemsToPut);
+	machine.addItem(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(50,500), itemsToPut);
 
 	final int afterSize = machine.getDifferentItemsCount();
 	final int afterAmountOfAll = machine.getAllItemsCount();
@@ -36,12 +37,14 @@ public class AddItemTest {
 
     @Test(dataProvider = "getFullMachineInService")
     public void addProductWithNegativePrice(final VendingMachine machine) {
-	assertFalse(machine.addItem("Duvki", -100, 5));
+	assertFalse(machine.addItem(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(-100, 0),
+		ThreadLocalRandom.current().nextInt(1, 10)));
     }
 
     @Test(dataProvider = "getFullMachineInService")
     public void addProductWithNegativeAmount(final VendingMachine machine) {
-	assertFalse(machine.addItem("Duvki", 100, -5));
+	assertFalse(machine.addItem(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(0, 500),
+		ThreadLocalRandom.current().nextInt(-10, 0)));
     }
 
 }

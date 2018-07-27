@@ -1,4 +1,4 @@
-package com.egtinteractive.vending_machine;
+package com.egtinteractive.inventory;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,26 +13,26 @@ public final class Inventory {
 	this.SIZE = size;
     }
 
-    public boolean addItem(Item item, int quantity) {
+    public boolean addItem(final Item item, int quantity) {
 
 	if (item == null) {
 	    return false;
 	}
-
+	
+	if (products.size() == SIZE && !products.containsKey(item)) {
+	    return false;
+	}
+	
 	String name = item.getName();
 
 	for (Map.Entry<Item, Integer> product : products.entrySet()) {
-	    if (product.getKey().getName().equals(name) && item.getPrice()!=product.getKey().getPrice()) {
+	    if (product.getKey().getName().equals(name) && item.getPrice() != product.getKey().getPrice()) {
 		return false;
 	    }
 	}
 
 	Integer currentQuantity = products.get(item);
-
-	if (products.size() == SIZE && !products.containsKey(item)) {
-	    return false;
-	}
-
+	
 	if (quantity <= 0 || item.getPrice() <= 0) {
 	    return false;
 	}
@@ -48,11 +48,11 @@ public final class Inventory {
 	return true;
     }
 
-    public boolean containsItem(Item item) {
+    public boolean containsItem(final Item item) {
 	return products.containsKey(item);
     }
 
-    public int getAmountOfItem(Item item) {
+    public int getAmountOfItem(final Item item) {
 	return products.get(item);
     }
 
@@ -68,16 +68,16 @@ public final class Inventory {
 	return count;
     }
 
-    public void removeItem(Item item) {
+    public void removeItem(final Item item) {
 	products.remove(item);
     }
 
-    public void getOneSpecificItemFromInventory(Item item) {
+    public void getOneSpecificItemFromInventory(final Item item) {
 	int currentQuantity = products.get(item);
 	products.replace(item, currentQuantity, currentQuantity - 1);
     }
 
-    public Item getItemByName(String name) {
+    public Item getItemByName(final String name) {
 	for (Map.Entry<Item, Integer> item : products.entrySet()) {
 	    if (item.getKey().getName().equals(name)) {
 		return item.getKey();

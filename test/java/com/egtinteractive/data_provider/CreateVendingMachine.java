@@ -1,4 +1,4 @@
-package com.egtinteractive.vending_machine;
+package com.egtinteractive.data_provider;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -32,6 +32,16 @@ public class CreateVendingMachine {
 	VendingMachine machine = VendingMachine.getInstance();
 	loadMachine(machine);
 	machine.service();
+	return machine;
+    }
+
+    public static Object createFullMachineItemSelected() {
+	VendingMachine machine = VendingMachine.getInstance();
+	loadMachine(machine);
+	machine.putCoins(ThreadLocalRandom.current().nextLong(50, 500));
+
+	final String item = Items.values()[ThreadLocalRandom.current().nextInt(Items.values().length)].getName();
+	machine.selectItem(item);
 	return machine;
     }
 
