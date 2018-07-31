@@ -18,25 +18,25 @@ public class CreateVendingMachine {
     }
 
     public static VendingMachine createEmptyMachine() {
-	VendingMachine machine = VendingMachine.getInstance();
+	VendingMachine machine = VendingMachine.getInstance(16);
 	return machine;
     }
 
     public static VendingMachine createFullMachine() {
-	VendingMachine machine = VendingMachine.getInstance();
+	VendingMachine machine = VendingMachine.getInstance(16);
 	loadMachine(machine);
 	return machine;
     }
 
     public static VendingMachine createFullMachineServiceMode() {
-	VendingMachine machine = VendingMachine.getInstance();
+	VendingMachine machine = VendingMachine.getInstance(16);
 	loadMachine(machine);
 	machine.service();
 	return machine;
     }
 
     public static Object createFullMachineItemSelected() {
-	VendingMachine machine = VendingMachine.getInstance();
+	VendingMachine machine = VendingMachine.getInstance(16);
 	loadMachine(machine);
 	machine.putCoins(ThreadLocalRandom.current().nextLong(50, 500));
 

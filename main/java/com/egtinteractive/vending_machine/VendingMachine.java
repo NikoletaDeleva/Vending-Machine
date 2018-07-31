@@ -20,7 +20,7 @@ public class VendingMachine {
 	this.inventory = new Inventory(size);
     }
 
-    public static VendingMachine getInstance() {
+    public static VendingMachine getInstance(int size) {
 	if (vendingMachineInstance == null) {
 	    vendingMachineInstance = new VendingMachine(DEFAUL_INVENTORY_SIZE);
 	}
