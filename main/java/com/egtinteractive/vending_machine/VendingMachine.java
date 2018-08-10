@@ -4,25 +4,35 @@ import java.util.Map;
 
 import com.egtinteractive.inventory.Inventory;
 import com.egtinteractive.inventory.Item;
+import com.egtinteractive.io.ConsoleIO;
+import com.egtinteractive.io.IO;
 
 public class VendingMachine {
     private static final int DEFAUL_INVENTORY_SIZE = 16;
     private static VendingMachine vendingMachineInstance = null;
+    private final int size;
     private long coins;
     private long totalMoney;
     private StateMachine state;
     private final Inventory inventory;
+    private final IO io;
 
     private VendingMachine(final int size) {
 	this.coins = 0L;
 	this.setTotalMoney(0L);
 	this.state = StateMachine.STAND_BY;
 	this.inventory = new Inventory(size);
+	this.io = new ConsoleIO();
+	if (size <= DEFAUL_INVENTORY_SIZE) {
+	    this.size = DEFAUL_INVENTORY_SIZE;
+	} else {
+	    this.size = size;
+	}
     }
 
-    public static VendingMachine getInstance(int size) {
+    public static VendingMachine getInstance(final int size) {
 	if (vendingMachineInstance == null) {
-	    vendingMachineInstance = new VendingMachine(DEFAUL_INVENTORY_SIZE);
+	    vendingMachineInstance = new VendingMachine(size);
 	}
 	return vendingMachineInstance;
     }
@@ -75,7 +85,7 @@ public class VendingMachine {
 	this.totalMoney = totalMoney;
     }
 
-    public boolean addItem(final String name, long price, int quantity) {
+    public boolean addItem(final String name, long price, final int quantity) {
 	return this.state.addItem(this, name, price, quantity);
     }
 
@@ -89,13 +99,13 @@ public class VendingMachine {
 
     public int getSpecificItemCount(final String name) {
 
-	Item item = inventory.getItemByName(name);
+	final Item item = inventory.getItemByName(name);
 
 	return inventory.getAmountOfItem(item);
     }
 
     public long service() {
-	long moneyReturn = this.returnCoinsToCustomer();
+	final long moneyReturn = this.returnCoinsToCustomer();
 	this.setState(StateMachine.SERVICE);
 	return moneyReturn;
     }
@@ -105,14 +115,14 @@ public class VendingMachine {
     }
 
     public long getItemPrice(final String name) {
-	Item item = inventory.getItemByName(name);
+	final Item item = inventory.getItemByName(name);
 	return item.getPrice();
     }
 
     public void loadHomePage() {
 	if (inventory.getProducts().isEmpty()) {
 
-	    System.out.println("Machine need service!");
+	    this.io.write("Machine need service!");
 
 	} else {
 	    final StringBuilder sb = new StringBuilder();
@@ -131,12 +141,16 @@ public class VendingMachine {
 	    }
 	    sb.append("-------------------------------------------------" + System.lineSeparator()
 		    + System.lineSeparator());
-	    System.out.println(sb);
+	    this.io.write(sb.toString());
 	}
 
     }
 
     public StateMachine getState() {
 	return this.state;
+    }
+
+    public int getSize() {
+	return size;
     }
 }

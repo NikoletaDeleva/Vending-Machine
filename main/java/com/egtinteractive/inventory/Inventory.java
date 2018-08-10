@@ -13,17 +13,17 @@ public final class Inventory {
 	this.SIZE = size;
     }
 
-    public boolean addItem(final Item item, int quantity) {
+    public boolean addItem(final Item item, final int quantity) {
 
 	if (item == null) {
 	    return false;
 	}
-	
+
 	if (products.size() == SIZE && !products.containsKey(item)) {
 	    return false;
 	}
-	
-	String name = item.getName();
+
+	final String name = item.getName();
 
 	for (Map.Entry<Item, Integer> product : products.entrySet()) {
 	    if (product.getKey().getName().equals(name) && item.getPrice() != product.getKey().getPrice()) {
@@ -31,8 +31,8 @@ public final class Inventory {
 	    }
 	}
 
-	Integer currentQuantity = products.get(item);
-	
+	final Integer currentQuantity = products.get(item);
+
 	if (quantity <= 0 || item.getPrice() <= 0) {
 	    return false;
 	}
@@ -73,7 +73,7 @@ public final class Inventory {
     }
 
     public void getOneSpecificItemFromInventory(final Item item) {
-	int currentQuantity = products.get(item);
+	final int currentQuantity = products.get(item);
 	products.replace(item, currentQuantity, currentQuantity - 1);
     }
 

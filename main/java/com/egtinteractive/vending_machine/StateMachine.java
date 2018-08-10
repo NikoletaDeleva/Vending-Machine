@@ -6,7 +6,7 @@ public enum StateMachine implements Machine {
     STAND_BY {
 
 	@Override
-	public boolean putCoins(final VendingMachine machine, long coins) {
+	public boolean putCoins(final VendingMachine machine, final long coins) {
 	    if (coins <= 0) {
 		return false;
 	    }
@@ -24,15 +24,15 @@ public enum StateMachine implements Machine {
     },
     SELECT_ITEM {
 	@Override
-	public boolean putCoins(final VendingMachine machine, long coins) {
+	public boolean putCoins(final VendingMachine machine, final long coins) {
 	    machine.addCoinsToMachine(coins);
 	    return true;
 	}
 
 	@Override
-	public boolean selectItem(final VendingMachine machine, String name) {
+	public boolean selectItem(final VendingMachine machine, final String name) {
 
-	    Item specificItem = machine.getInventory().getItemByName(name);
+	    final Item specificItem = machine.getInventory().getItemByName(name);
 
 	    if (specificItem == null) {
 		return false;
@@ -84,8 +84,8 @@ public enum StateMachine implements Machine {
     SERVICE {
 
 	@Override
-	public boolean addItem(final VendingMachine machine, final String name, long price, int quantity) {
-	    Item item = new Item(name, price);
+	public boolean addItem(final VendingMachine machine, final String name, final long price, final int quantity) {
+	    final Item item = new Item(name, price);
 
 	    return machine.getInventory().addItem(item, quantity);
 	}
@@ -119,7 +119,7 @@ public enum StateMachine implements Machine {
     }
 
     @Override
-    public boolean addItem(final VendingMachine machine, final String name, long price, int quantity) {
+    public boolean addItem(final VendingMachine machine, final String name, final long price, final int quantity) {
 	return false;
     }
 

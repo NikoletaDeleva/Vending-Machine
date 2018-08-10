@@ -1,7 +1,7 @@
 package com.egtinteractive.vending_machine;
 
 public interface Machine {
-    public abstract boolean putCoins(final VendingMachine machine, long money);
+    public abstract boolean putCoins(final VendingMachine machine, final long money);
 
     public abstract boolean selectItem(final VendingMachine machine, final String name);
 

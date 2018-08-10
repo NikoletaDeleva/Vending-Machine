@@ -10,8 +10,19 @@ public class Demo {
 	machine.addItem("Sok 1" , 300, 5);
 	machine.addItem("Sok 1" , 300, 5);
 	machine.endService();
+	machine.loadHomePage();
 	machine.putCoins(200);
+	machine.loadHomePage();
 	machine.selectItem("Sok 1");
+	machine.loadHomePage();
+	machine.takeItem();
+	machine.putCoins(100);
+	machine.loadHomePage();
+	machine.takeItem();
+	machine.loadHomePage();
+	machine.selectItem("Sok 1");
+	machine.loadHomePage();
+	machine.takeItem();
 	machine.loadHomePage();
     }
 }
