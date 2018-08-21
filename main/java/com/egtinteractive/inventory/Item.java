@@ -41,5 +41,10 @@ public class Item {
 
 	return name.equals(other.name) && (price == other.price);
     }
+    
+    @Override
+    public String toString() {
+        return (this.name + "  " + this.price);
+    }
 
 }

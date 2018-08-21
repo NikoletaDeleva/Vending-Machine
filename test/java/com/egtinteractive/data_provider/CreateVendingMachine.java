@@ -2,6 +2,8 @@ package com.egtinteractive.data_provider;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.egtinteractive.inventory.Inventory;
+import com.egtinteractive.io.ConsoleIO;
 import com.egtinteractive.vending_machine.VendingMachine;
 
 public class CreateVendingMachine {
@@ -18,25 +20,33 @@ public class CreateVendingMachine {
     }
 
     public static VendingMachine createEmptyMachine() {
-	VendingMachine machine = VendingMachine.getInstance(16);
+	final int size = 16;
+	ConsoleIO io = new ConsoleIO();
+	VendingMachine machine = new VendingMachine(io, new Inventory(size));
 	return machine;
     }
 
     public static VendingMachine createFullMachine() {
-	VendingMachine machine = VendingMachine.getInstance(16);
+	final int size = 16;
+	ConsoleIO io = new ConsoleIO();
+	VendingMachine machine = new VendingMachine(io, new Inventory(size));
 	loadMachine(machine);
 	return machine;
     }
 
     public static VendingMachine createFullMachineServiceMode() {
-	VendingMachine machine = VendingMachine.getInstance(16);
+	final int size = 16;
+	ConsoleIO io = new ConsoleIO();
+	VendingMachine machine = new VendingMachine(io, new Inventory(size));
 	loadMachine(machine);
 	machine.service();
 	return machine;
     }
 
     public static Object createFullMachineItemSelected() {
-	VendingMachine machine = VendingMachine.getInstance(16);
+	final int size = 16;
+	ConsoleIO io = new ConsoleIO();
+	VendingMachine machine = new VendingMachine(io, new Inventory(size));
 	loadMachine(machine);
 	machine.putCoins(ThreadLocalRandom.current().nextLong(50, 500));
 

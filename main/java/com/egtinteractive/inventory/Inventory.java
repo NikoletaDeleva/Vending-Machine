@@ -5,12 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Inventory {
-    private final int SIZE;
+    private static final int DEFAUL_INVENTORY_SIZE = 16;
+    private final int size;
     private Map<Item, Integer> products;
 
     public Inventory(int size) {
 	this.products = new HashMap<Item, Integer>();
-	this.SIZE = size;
+
+	if (size <= DEFAUL_INVENTORY_SIZE) {
+	    this.size = DEFAUL_INVENTORY_SIZE;
+	} else {
+	    this.size = size;
+	}
     }
 
     public boolean addItem(final Item item, final int quantity) {
@@ -19,7 +25,7 @@ public final class Inventory {
 	    return false;
 	}
 
-	if (products.size() == SIZE && !products.containsKey(item)) {
+	if (products.size() == size && !products.containsKey(item)) {
 	    return false;
 	}
 
@@ -48,16 +54,8 @@ public final class Inventory {
 	return true;
     }
 
-    public boolean containsItem(final Item item) {
-	return products.containsKey(item);
-    }
-
     public int getAmountOfItem(final Item item) {
 	return products.get(item);
-    }
-
-    public int getDifferentItemsCount() {
-	return this.products.size();
     }
 
     public int getAllItemsCount() {
@@ -66,10 +64,6 @@ public final class Inventory {
 	    count += item.getValue();
 	}
 	return count;
-    }
-
-    public void removeItem(final Item item) {
-	products.remove(item);
     }
 
     public void getOneSpecificItemFromInventory(final Item item) {

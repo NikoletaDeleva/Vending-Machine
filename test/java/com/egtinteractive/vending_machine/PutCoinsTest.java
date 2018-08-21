@@ -1,7 +1,6 @@
 package com.egtinteractive.vending_machine;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -35,7 +34,7 @@ public class PutCoinsTest {
 	assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "getFullMachine")
+    @Test(dataProvider = "getFullMachine" , expectedExceptions = IllegalArgumentException.class )
     public void addCoinsTestIfInvalid(final VendingMachine machine) {
 	machine.returnCoinsToCustomer();
 	final long expected = ThreadLocalRandom.current().nextLong(1, 100);
@@ -46,7 +45,7 @@ public class PutCoinsTest {
 	final long invalidAmount = ThreadLocalRandom.current().nextLong(-100, 0);
 	final long actual = machine.putCoins(invalidAmount);
 
-	assertNotEquals(actual, expected);
+	assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "getFullMachine")

@@ -21,15 +21,15 @@ public class AddItemTest {
 
     @Test(dataProvider = "getFullMachineInService")
     public void addNonExistingItem(final VendingMachine machine) {
-	final int beforeSize = machine.getDifferentItemsCount();
-	final int beforeAmountOfAll = machine.getAllItemsCount();
+	final int beforeSize = machine.getInventory().getProducts().size();
+	final int beforeAmountOfAll = machine.getInventory().getAllItemsCount();
 
 	final int itemsToPut = ThreadLocalRandom.current().nextInt(1, 10);
 
 	machine.addItem(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(50,500), itemsToPut);
 
-	final int afterSize = machine.getDifferentItemsCount();
-	final int afterAmountOfAll = machine.getAllItemsCount();
+	final int afterSize = machine.getInventory().getProducts().size();
+	final int afterAmountOfAll = machine.getInventory().getAllItemsCount();
 
 	assertEquals(afterSize, beforeSize + 1);
 	assertEquals(afterAmountOfAll, beforeAmountOfAll + itemsToPut);

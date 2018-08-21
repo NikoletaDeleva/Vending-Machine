@@ -1,5 +1,7 @@
 package com.egtinteractive.vending_machine;
 
+import java.util.NoSuchElementException;
+
 import com.egtinteractive.inventory.Item;
 
 public enum StateMachine implements Machine {
@@ -8,7 +10,7 @@ public enum StateMachine implements Machine {
 	@Override
 	public boolean putCoins(final VendingMachine machine, final long coins) {
 	    if (coins <= 0) {
-		return false;
+		throw new IllegalArgumentException("Cannot add negative coins. Try again!");
 	    }
 	    machine.addCoinsToMachine(coins);
 	    machine.setState(StateMachine.SELECT_ITEM);
@@ -25,6 +27,9 @@ public enum StateMachine implements Machine {
     SELECT_ITEM {
 	@Override
 	public boolean putCoins(final VendingMachine machine, final long coins) {
+	    if (coins <= 0) {
+		throw new IllegalArgumentException("Cannot add negative coins. Try again!");
+	    }
 	    machine.addCoinsToMachine(coins);
 	    return true;
 	}
@@ -35,9 +40,10 @@ public enum StateMachine implements Machine {
 	    final Item specificItem = machine.getInventory().getItemByName(name);
 
 	    if (specificItem == null) {
-		return false;
+		throw new NoSuchElementException("Cannot select null element! Try again!");
 	    }
 	    if (machine.getCoins() < specificItem.getPrice()) {
+		machine.getIo().write("Not enough coins! Plaese add more!");
 		return false;
 	    }
 	    if (machine.getInventory().getAmountOfItem(specificItem) > 0) {
